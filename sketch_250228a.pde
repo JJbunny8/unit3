@@ -11,7 +11,7 @@ color teal =   #9BF6FF;
 color blue =   #A0C4FF;
 color purple = #BDB2FF;
 color pink =   #FFC7D7;
-color grey =    #393A41;
+color grey =   #393A41;
 
 PImage flower;
 boolean flowerOn; //true or false
