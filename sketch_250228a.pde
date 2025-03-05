@@ -16,8 +16,10 @@ color grey =   #393A41;
 PImage flower;
 boolean flowerOn; //true or false
 
-//variables for colour selection
+//variables
 color selectedColor;
+float sliderY;
+float thickness;
 
 void setup() {
   size(800, 600);
@@ -25,6 +27,8 @@ void setup() {
   selectedColor = red;
   flower = loadImage ("Flower.png");
   flowerOn = false;
+  sliderY = 220;
+  thickness = 2;
 }
 
 void draw() {
@@ -40,8 +44,9 @@ void draw() {
   flowerOnOff();
   rect(0, 0, 100, 100);
   image(flower, 0, 0, 100, 100);
-  
-//colour buttons
+
+  //colour buttons
+  strokeWeight(2);
 
   tactile(725, 30, 15);
   fill(red);
@@ -50,11 +55,11 @@ void draw() {
   tactile(775, 30, 15);
   fill(orange);
   circle(775, 30, 30);
-  
+
   tactile(725, 80, 15);
   fill(yellow);
   circle(725, 80, 30);
-  
+
   tactile(775, 80, 15);
   fill(green);
   circle(775, 80, 30);
@@ -62,22 +67,30 @@ void draw() {
   tactile(725, 130, 15);
   fill(teal);
   circle(725, 130, 30);
-  
+
   tactile(775, 130, 15);
   fill(blue);
   circle(775, 130, 30);
-  
+
   tactile(725, 180, 15);
   fill(purple);
   circle(725, 180, 30);
-  
+
   tactile(775, 180, 15);
   fill(pink);
-  circle(775, 180, 30);  
+  circle(775, 180, 30);
+  
+  //slider
+  strokeWeight(2);
+  stroke(255);
+  line(750, 220, 750, 380);
+  fill(255);
+  circle(750, sliderY, 20);
+
 }
 
 void tactile (int x, int y, int r) {
- if (dist(x, y, mouseX, mouseY) < r) {
+  if (dist(x, y, mouseX, mouseY) < r) {
     stroke(0);
   } else {
     stroke(255);
@@ -87,12 +100,13 @@ void tactile (int x, int y, int r) {
 void mouseDragged() {
   if (flowerOn == false) {
     //squiggly line
-    strokeWeight(3);
+    strokeWeight(thickness);
     stroke(selectedColor);
     line(pmouseX, pmouseY, mouseX, mouseY);
   } else {
     //flower drawing
     image(flower, mouseX, mouseY, 100, 100);
+    controlSlider();
   }
 }
 
@@ -100,8 +114,9 @@ void mouseReleased() {
   //flower button
   if (mouseX > 0 && mouseX < 100 && mouseY > 0 && mouseY < 100) {
     flowerOn = !flowerOn;
+  }
   
-    //red button
+  //red button
   if (dist(725, 30, mouseX, mouseY) < 15) {
     selectedColor = red;
   }
@@ -111,8 +126,8 @@ void mouseReleased() {
     selectedColor = orange;
   }
 
- //yellow button
- if (dist(725, 80, mouseX, mouseY) < 15) {
+  //yellow button
+  if (dist(725, 80, mouseX, mouseY) < 15) {
     selectedColor = yellow;
   }
 
@@ -120,8 +135,8 @@ void mouseReleased() {
   if (dist(775, 80, mouseX, mouseY) < 15) {
     selectedColor = green;
   }
-   //teal button
-   if (dist(725, 130, mouseX, mouseY) < 15) {
+  //teal button
+  if (dist(725, 130, mouseX, mouseY) < 15) {
     selectedColor = teal;
   }
 
@@ -129,8 +144,8 @@ void mouseReleased() {
   if (dist(775, 130, mouseX, mouseY) < 15) {
     selectedColor = blue;
   }
-   //purple button
-   if (dist(725, 180, mouseX, mouseY) < 15) {
+  //purple button
+  if (dist(725, 180, mouseX, mouseY) < 15) {
     selectedColor = purple;
   }
 
@@ -138,7 +153,15 @@ void mouseReleased() {
   if (dist(775, 180, mouseX, mouseY) < 35) {
     selectedColor = pink;
   }
-  } 
+  
+   controlSlider();
+}
+
+void controlSlider() {
+  if (mouseY > 220 && mouseY < 380 && mouseX > 735 && mouseY < 765) {
+    sliderY = mouseY;
+  }    
+    thickness = map(sliderY, 220, 380, 1, 80);
 }
 
 
