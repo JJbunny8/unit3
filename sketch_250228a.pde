@@ -27,7 +27,7 @@ void setup() {
   selectedColor = red;
   flower = loadImage ("Flower.png");
   flowerOn = false;
-  sliderY = 220;
+  sliderY = 30;
   thickness = 2;
 }
 
@@ -35,9 +35,9 @@ void draw() {
   fill(255);
   //toolbar
   stroke(0);
-  strokeWeight(1);
+  strokeWeight(0);
   fill(grey);
-  rect(700, 0, 100, 800);
+  rect(650, 0, 150, 800);
 
   //flower button
   tactile(0, 0, 100, 100);
@@ -83,9 +83,10 @@ void draw() {
   //slider
   strokeWeight(2);
   stroke(255);
-  line(750, 220, 750, 380);
+  tactile(680, 20 - 220, 15);
+  line(680, 20, 680, 200);
   fill(255);
-  circle(750, sliderY, 20);
+  circle(680, sliderY, 20);
 
 }
 
@@ -106,8 +107,11 @@ void mouseDragged() {
   } else {
     //flower drawing
     image(flower, mouseX, mouseY, 100, 100);
-    controlSlider();
+    
   }
+   controlSlider();
+   
+   
 }
 
 void mouseReleased() {
@@ -150,18 +154,19 @@ void mouseReleased() {
   }
 
   //pink button
-  if (dist(775, 180, mouseX, mouseY) < 35) {
+  if (dist(775, 180, mouseX, mouseY) < 15) {
     selectedColor = pink;
   }
   
    controlSlider();
+   
 }
 
 void controlSlider() {
-  if (mouseY > 220 && mouseY < 380 && mouseX > 735 && mouseY < 765) {
+  if (mouseY > 20 && mouseY < 220 && mouseX > 670 && mouseX < 690) {
     sliderY = mouseY;
   }    
-    thickness = map(sliderY, 220, 380, 1, 80);
+    thickness = map(sliderY, 20, 220, 1, 80);
 }
 
 
@@ -171,6 +176,16 @@ void tactile(int x, int y, int w, int h) {
   } else {
     fill(255);
   }
+  
+  if (mouseX > x && mouseX < x+w  && mouseY > y && mouseY < y+h) {
+    fill(255, 255, 0);
+  } else {
+    fill(255);
+  } 
+  
+  
+  
+  
 }
 
 void flowerOnOff() {
