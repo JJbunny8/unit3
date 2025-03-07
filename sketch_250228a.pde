@@ -19,6 +19,7 @@ boolean flowerOn; //true or false
 //variables
 color selectedColor;
 float sliderY;
+float r;
 float thickness;
 
 void setup() {
@@ -29,6 +30,7 @@ void setup() {
   flowerOn = false;
   sliderY = 30;
   thickness = 2;
+  r = 3;
 }
 
 void draw() {
@@ -40,10 +42,26 @@ void draw() {
   rect(650, 0, 150, 800);
 
   //flower button
-  tactile(0, 0, 100, 100);
+  tactile(680, 300, 90, 70);
   flowerOnOff();
-  rect(0, 0, 100, 100);
-  image(flower, 0, 0, 100, 100);
+  strokeWeight(3);
+  rect(680, 300, 90, 70);
+  image(flower, 690, 300, 70, 70);
+  
+  //indicator
+  fill(selectedColor);
+  stroke(255);
+  strokeWeight(2);
+  circle(770, 250, 40);
+  stroke(0);
+  strokeWeight(0);
+  fill(0);
+  circle(770, 250, r);
+  r = map(sliderY, 20, 220, 3, 35);
+  
+  //eraser
+  fill(255);
+  rect(672, 235, 55, 40);
 
   //colour buttons
   strokeWeight(2);
@@ -83,7 +101,7 @@ void draw() {
   //slider
   strokeWeight(2);
   stroke(255);
-  tactile(680, 20 - 220, 15);
+  tactile1(680, 20, 680, 220);
   line(680, 20, 680, 200);
   fill(255);
   circle(680, sliderY, 20);
@@ -106,17 +124,15 @@ void mouseDragged() {
     line(pmouseX, pmouseY, mouseX, mouseY);
   } else {
     //flower drawing
-    image(flower, mouseX, mouseY, 100, 100);
+    image(flower, mouseX, mouseY, thickness, thickness);
     
   }
    controlSlider();
-   
-   
 }
 
 void mouseReleased() {
   //flower button
-  if (mouseX > 0 && mouseX < 100 && mouseY > 0 && mouseY < 100) {
+  if (mouseX > 680 && mouseX < 90 && mouseY > 300 && mouseY < 70) {
     flowerOn = !flowerOn;
   }
   
@@ -158,34 +174,23 @@ void mouseReleased() {
     selectedColor = pink;
   }
   
-   controlSlider();
-   
+   controlSlider();   
 }
 
 void controlSlider() {
-  if (mouseY > 20 && mouseY < 220 && mouseX > 670 && mouseX < 690) {
+  if (mouseY > 20 && mouseY < 200 && mouseX > 670 && mouseX < 690) {
     sliderY = mouseY;
   }    
-    thickness = map(sliderY, 20, 220, 1, 80);
+    thickness = map(sliderY, 20, 220, 1, 200);
 }
 
-
 void tactile(int x, int y, int w, int h) {
-  if (mouseX > x && mouseX < x+w  && mouseY > y && mouseY < y+h) {
+if (mouseX > x && mouseX < x+w  && mouseY > y && mouseY < y+h) {
     fill(255, 255, 0);
   } else {
     fill(255);
   }
-  
-  if (mouseX > x && mouseX < x+w  && mouseY > y && mouseY < y+h) {
-    fill(255, 255, 0);
-  } else {
-    fill(255);
-  } 
-  
-  
-  
-  
+
 }
 
 void flowerOnOff() {
