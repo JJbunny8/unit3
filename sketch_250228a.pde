@@ -15,6 +15,8 @@ color grey =   #393A41;
 
 PImage flower;
 boolean flowerOn; //true or false
+PImage strawberry;
+boolean strawberryOn; //true or false
 
 //variables
 color selectedColor;
@@ -28,6 +30,8 @@ void setup() {
   selectedColor = red;
   flower = loadImage ("Flower.png");
   flowerOn = false;
+  strawberry = loadImage ("strawberry.png");
+  strawberryOn = false;
   sliderY = 30;
   thickness = 2;
   r = 3;
@@ -42,11 +46,18 @@ void draw() {
   rect(650, 0, 150, 800);
 
   //flower button
-  tactile(680, 300, 90, 70);
+  tactile(680, 295, 90, 70);
   flowerOnOff();
   strokeWeight(3);
-  rect(680, 300, 90, 70);
-  image(flower, 690, 300, 70, 70);
+  rect(680, 295, 90, 70);
+  image(flower, 690, 295, 70, 70);
+  
+  //strawberry button
+  tactile(680, 380, 90, 70);
+  strawberryOnOff();
+  strokeWeight(3);
+  rect(680, 375, 90, 70);
+  image(strawberry, 680, 370, 90, 90);
   
   //indicator
   fill(selectedColor);
@@ -101,11 +112,15 @@ void draw() {
   //slider
   strokeWeight(2);
   stroke(255);
-  tactile1(680, 20, 680, 220);
+  tactile(680, 20, 680, 220);
   line(680, 20, 680, 200);
   fill(255);
   circle(680, sliderY, 20);
-
+  
+  //new button
+  tactile(675, 465, 100, 30);
+  strokeWeight(3);
+  rect(675, 465, 100, 30);
 }
 
 void tactile (int x, int y, int r) {
@@ -117,7 +132,7 @@ void tactile (int x, int y, int r) {
 }
 
 void mouseDragged() {
-  if (flowerOn == false) {
+  if (flowerOn == false && strawberryOn == false) {
     //squiggly line
     strokeWeight(thickness);
     stroke(selectedColor);
@@ -125,15 +140,30 @@ void mouseDragged() {
   } else {
     //flower drawing
     image(flower, mouseX, mouseY, thickness, thickness);
+    }
     
-  }
+    if (strawberryOn == false && flowerOn == false) {
+    //squiggly line
+    strokeWeight(thickness);
+    stroke(selectedColor);
+    line(pmouseX, pmouseY, mouseX, mouseY);
+     } else {
+    //strawberry drawing
+    image(strawberry, mouseX, mouseY, thickness, thickness);
+    }
    controlSlider();
+
 }
 
 void mouseReleased() {
   //flower button
-  if (mouseX > 680 && mouseX < 90 && mouseY > 300 && mouseY < 70) {
+  if (mouseX > 680 && mouseX < 770 && mouseY > 295 && mouseY < 365) {
     flowerOn = !flowerOn;
+  }
+  
+  //strawberry button
+  if (mouseX > 680 && mouseX < 770 && mouseY > 375 && mouseY < 445) {
+    strawberryOn = !strawberryOn;
   }
   
   //red button
@@ -174,7 +204,13 @@ void mouseReleased() {
     selectedColor = pink;
   }
   
-   controlSlider();   
+   controlSlider();  
+   
+   //new button
+   if (mouseX > 675 && mouseX < 775 && mouseY > 465 && mouseY < 495 ) {
+     fill(255);
+     rect(0, 0, 650, 800);
+   }
 }
 
 void controlSlider() {
@@ -195,6 +231,17 @@ if (mouseX > x && mouseX < x+w  && mouseY > y && mouseY < y+h) {
 
 void flowerOnOff() {
   if (flowerOn == true) {
+    stroke(255, 0, 0);
+    strokeWeight(5);
+  } else {
+    stroke(0);
+    strokeWeight(1);
+  }
+}
+
+
+void strawberryOnOff() {
+  if (strawberryOn == true) {
     stroke(255, 0, 0);
     strokeWeight(5);
   } else {
