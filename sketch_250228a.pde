@@ -120,7 +120,20 @@ void draw() {
   //new button
   tactile(675, 465, 100, 30);
   strokeWeight(3);
+  stroke(0);
+  fill(255);
   rect(675, 465, 100, 30);
+  text("save", 470, 500);
+  
+  //save button
+  tactile(675, 505, 100, 30);
+  rect(675, 505, 100, 30);
+  text("save", 510, 500);
+  
+  //load button
+  tactile(675, 545, 100, 30);
+  rect(675, 545, 100, 30);
+  text("save", 510, 500);
 }
 
 void tactile (int x, int y, int r) {
@@ -209,7 +222,17 @@ void mouseReleased() {
    //new button
    if (mouseX > 675 && mouseX < 775 && mouseY > 465 && mouseY < 495 ) {
      fill(255);
-     rect(0, 0, 650, 800);
+     rect(0, 0, 648, 800);
+   }
+   
+   //load button
+   if(mouseX > 10 && mouseX < 60 && mouseY > 520 && mouseY < 545) {
+     selectInput("Pick an image to load", "openImage");
+   }
+   
+    //save button
+   if(mouseX > 10 && mouseX < 60 && mouseY > 550 && mouseY < 575) {
+     selectOutput("Chose a name for your new image file", "saveImage");
    }
 }
 
@@ -239,7 +262,6 @@ void flowerOnOff() {
   }
 }
 
-
 void strawberryOnOff() {
   if (strawberryOn == true) {
     stroke(255, 0, 0);
@@ -247,5 +269,24 @@ void strawberryOnOff() {
   } else {
     stroke(0);
     strokeWeight(1);
+  }
+}
+void saveImage(File f) {
+  if (f != null) {
+    PImage canvas = get( 71, 1, width -71, height-1);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+
+void openImage(File f) {
+  if (f != null) {
+    //KLUDGE
+    int n= 0;
+    while (n < 10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 0, 0);
+      n = n + 1;
+    }
   }
 }
