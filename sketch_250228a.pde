@@ -3,20 +3,21 @@
 //2-3
 
 //colour pallette
-color red =    #FFADB6;
-color orange = #FFD6A5;
-color yellow = #FDFFB6;
-color green =  #CAFFBF;
-color teal =   #9BF6FF;
-color blue =   #A0C4FF;
-color purple = #BDB2FF;
-color pink =   #FFC7D7;
-color grey =   #393A41;
+color red =      #FFADB6;
+color orange =   #FFD6A5;
+color yellow =   #FDFFB6;
+color green =    #CAFFBF;
+color teal =     #9BF6FF;
+color blue =     #A0C4FF;
+color purple =   #BDB2FF;
+color pink =     #FFC7D7;
+color grey =     #393A41;
+color white =    #FFFFFF;
+color black =    #000000;
+color offwhite = #D3D1D1;
 
 PImage flower;
 boolean flowerOn; //true or false
-PImage strawberry;
-boolean strawberryOn; //true or false
 
 //variables
 color selectedColor;
@@ -30,9 +31,7 @@ void setup() {
   selectedColor = red;
   flower = loadImage ("Flower.png");
   flowerOn = false;
-  strawberry = loadImage ("strawberry.png");
-  strawberryOn = false;
-  sliderY = 30;
+  sliderY = 220;
   thickness = 2;
   r = 3;
 }
@@ -43,37 +42,26 @@ void draw() {
   stroke(0);
   strokeWeight(0);
   fill(grey);
-  rect(650, 0, 150, 800);
+  rect(700, 0, 100, 800);
 
   //flower button
-  tactile(680, 295, 90, 70);
+  tactile(714, 400, 75, 75);
   flowerOnOff();
   strokeWeight(3);
-  rect(680, 295, 90, 70);
-  image(flower, 690, 295, 70, 70);
-  
-  //strawberry button
-  tactile(680, 380, 90, 70);
-  strawberryOnOff();
-  strokeWeight(3);
-  rect(680, 375, 90, 70);
-  image(strawberry, 680, 370, 90, 90);
+  rect(714, 400, 75, 75);
+  image(flower, 716, 402, 70, 70);
   
   //indicator
   fill(selectedColor);
-  stroke(255);
+  stroke(offwhite);
   strokeWeight(2);
-  circle(770, 250, 40);
+  circle(735, 345, 40);
   stroke(0);
   strokeWeight(0);
   fill(0);
-  circle(770, 250, r);
-  r = map(sliderY, 20, 220, 3, 35);
+  circle(735, 345, r);
+  r = map(sliderY, 215, 385, 3, 35);
   
-  //eraser
-  fill(255);
-  rect(672, 235, 55, 40);
-
   //colour buttons
   strokeWeight(2);
 
@@ -109,31 +97,42 @@ void draw() {
   fill(pink);
   circle(775, 180, 30);
   
+  tactile(725, 230, 15);
+  fill(white);
+  circle(725, 230, 30);
+  
+  tactile(725, 280, 15);
+  fill(black);
+  circle(725, 280, 30);
+  
   //slider
   strokeWeight(2);
   stroke(255);
-  tactile(680, 20, 680, 220);
-  line(680, 20, 680, 200);
+  tactile(770, 215, 780, 385);
+  line(775, 215, 775, 385);
   fill(255);
-  circle(680, sliderY, 20);
+  circle(775, sliderY, 20);
   
   //new button
-  tactile(675, 465, 100, 30);
+  tactile(715, 484, 70, 30);
   strokeWeight(3);
   stroke(0);
   fill(255);
-  rect(675, 465, 100, 30);
-  text("save", 470, 500);
+  rect(715, 484, 70, 30);
+  fill(0);
+  text("new", 737, 502);
   
   //save button
-  tactile(675, 505, 100, 30);
-  rect(675, 505, 100, 30);
-  text("save", 510, 500);
+  tactile(715, 522, 70, 30);
+  rect(715, 522, 70, 30);
+  fill(0);
+  text("save", 737, 542);
   
   //load button
-  tactile(675, 545, 100, 30);
-  rect(675, 545, 100, 30);
-  text("save", 510, 500);
+  tactile(715, 560, 70, 30);
+  rect(715, 560, 70, 30);
+  fill(0);
+  text("load", 737, 580);
 }
 
 void tactile (int x, int y, int r) {
@@ -145,7 +144,7 @@ void tactile (int x, int y, int r) {
 }
 
 void mouseDragged() {
-  if (flowerOn == false && strawberryOn == false) {
+  if (flowerOn == false) {
     //squiggly line
     strokeWeight(thickness);
     stroke(selectedColor);
@@ -155,28 +154,13 @@ void mouseDragged() {
     image(flower, mouseX, mouseY, thickness, thickness);
     }
     
-    if (strawberryOn == false && flowerOn == false) {
-    //squiggly line
-    strokeWeight(thickness);
-    stroke(selectedColor);
-    line(pmouseX, pmouseY, mouseX, mouseY);
-     } else {
-    //strawberry drawing
-    image(strawberry, mouseX, mouseY, thickness, thickness);
-    }
    controlSlider();
-
 }
 
 void mouseReleased() {
   //flower button
-  if (mouseX > 680 && mouseX < 770 && mouseY > 295 && mouseY < 365) {
+  if (mouseX > 714 && mouseX < 789 && mouseY > 400 && mouseY < 475) {
     flowerOn = !flowerOn;
-  }
-  
-  //strawberry button
-  if (mouseX > 680 && mouseX < 770 && mouseY > 375 && mouseY < 445) {
-    strawberryOn = !strawberryOn;
   }
   
   //red button
@@ -220,27 +204,28 @@ void mouseReleased() {
    controlSlider();  
    
    //new button
-   if (mouseX > 675 && mouseX < 775 && mouseY > 465 && mouseY < 495 ) {
+   if (mouseX > 715 && mouseX < 775 && mouseY > 484 && mouseY < 554 ) {
      fill(255);
-     rect(0, 0, 648, 800);
+     strokeWeight(0);
+     rect(0, 0, 700, 800);
    }
    
    //load button
-   if(mouseX > 10 && mouseX < 60 && mouseY > 520 && mouseY < 545) {
+   if(mouseX > 715 && mouseX < 775 && mouseY > 560 && mouseY < 613) {
      selectInput("Pick an image to load", "openImage");
    }
    
     //save button
-   if(mouseX > 10 && mouseX < 60 && mouseY > 550 && mouseY < 575) {
+   if(mouseX > 715 && mouseX < 775 && mouseY > 522 && mouseY < 597) {
      selectOutput("Chose a name for your new image file", "saveImage");
    }
 }
 
 void controlSlider() {
-  if (mouseY > 20 && mouseY < 200 && mouseX > 670 && mouseX < 690) {
+  if (mouseY > 215 && mouseY < 385 && mouseX > 765 && mouseX < 785) {
     sliderY = mouseY;
   }    
-    thickness = map(sliderY, 20, 220, 1, 200);
+    thickness = map(sliderY, 215, 385, 1, 200);
 }
 
 void tactile(int x, int y, int w, int h) {
@@ -262,15 +247,6 @@ void flowerOnOff() {
   }
 }
 
-void strawberryOnOff() {
-  if (strawberryOn == true) {
-    stroke(255, 0, 0);
-    strokeWeight(5);
-  } else {
-    stroke(0);
-    strokeWeight(1);
-  }
-}
 void saveImage(File f) {
   if (f != null) {
     PImage canvas = get( 71, 1, width -71, height-1);
