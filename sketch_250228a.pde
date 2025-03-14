@@ -14,7 +14,6 @@ color pink =     #FFC7D7;
 color grey =     #393A41;
 color white =    #FFFFFF;
 color black =    #000000;
-color offwhite = #D3D1D1;
 
 PImage flower;
 boolean flowerOn; //true or false
@@ -53,7 +52,7 @@ void draw() {
   
   //indicator
   fill(selectedColor);
-  stroke(offwhite);
+  stroke(255);
   strokeWeight(2);
   circle(735, 345, 40);
   stroke(0);
@@ -64,7 +63,6 @@ void draw() {
   
   //colour buttons
   strokeWeight(2);
-
   tactile(725, 30, 15);
   fill(red);
   circle(725, 30, 30);
@@ -106,9 +104,9 @@ void draw() {
   circle(725, 280, 30);
   
   //slider
-  strokeWeight(2);
+  strokeWeight(3);
   stroke(255);
-  tactile(770, 215, 780, 385);
+  tactile(765, 210, 20, 170);
   line(775, 215, 775, 385);
   fill(255);
   circle(775, sliderY, 20);
@@ -201,6 +199,16 @@ void mouseReleased() {
     selectedColor = pink;
   }
   
+   //white button
+  if (dist(725, 230, mouseX, mouseY) < 15) {
+    selectedColor = white;
+  }
+  
+  //black button
+  if (dist(725, 280, mouseX, mouseY) < 15) {
+    selectedColor = black;
+  }
+  
    controlSlider();  
    
    //new button
@@ -210,15 +218,16 @@ void mouseReleased() {
      rect(0, 0, 700, 800);
    }
    
+    //save button
+   if(mouseX > 715 && mouseX < 775 && mouseY > 522 && mouseY < 597) {
+     selectOutput("Chose a name for your new image file", "saveImage");
+   }
+   
    //load button
    if(mouseX > 715 && mouseX < 775 && mouseY > 560 && mouseY < 613) {
      selectInput("Pick an image to load", "openImage");
    }
    
-    //save button
-   if(mouseX > 715 && mouseX < 775 && mouseY > 522 && mouseY < 597) {
-     selectOutput("Chose a name for your new image file", "saveImage");
-   }
 }
 
 void controlSlider() {
@@ -231,6 +240,7 @@ void controlSlider() {
 void tactile(int x, int y, int w, int h) {
 if (mouseX > x && mouseX < x+w  && mouseY > y && mouseY < y+h) {
     fill(255, 255, 0);
+    stroke(0);
   } else {
     fill(255);
   }
@@ -261,7 +271,7 @@ void openImage(File f) {
     int n= 0;
     while (n < 10) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 0, 0);
+      image(pic, 400, 300);
       n = n + 1;
     }
   }
