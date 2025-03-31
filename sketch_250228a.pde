@@ -112,10 +112,10 @@ void draw() {
   circle(775, sliderY, 20);
   
   //new button
-  tactile(715, 484, 70, 30);
   strokeWeight(3);
   stroke(0);
   fill(255);
+  tactile(715, 484, 70, 30);
   rect(715, 484, 70, 30);
   fill(0);
   text("new", 737, 502);
