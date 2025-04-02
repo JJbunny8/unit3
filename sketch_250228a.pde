@@ -210,21 +210,21 @@ void mouseReleased() {
   }
   
    controlSlider();  
-   
+  
    //new button
-   if (mouseX > 715 && mouseX < 775 && mouseY > 484 && mouseY < 554 ) {
+   if (mouseX > 715 && mouseX < 785 && mouseY > 484 && mouseY < 514) {
      fill(255);
      strokeWeight(0);
      rect(0, 0, 700, 800);
    }
    
     //save button
-   if(mouseX > 715 && mouseX < 775 && mouseY > 522 && mouseY < 597) {
+   if(mouseX > 715 && mouseX < 785 && mouseY > 522 && mouseY < 552) {
      selectOutput("Chose a name for your new image file", "saveImage");
    }
    
    //load button
-   if(mouseX > 715 && mouseX < 775 && mouseY > 560 && mouseY < 613) {
+   if(mouseX > 715 && mouseX < 785 && mouseY > 560 && mouseY < 590) {
      selectInput("Pick an image to load", "openImage");
    }
    
@@ -259,7 +259,7 @@ void flowerOnOff() {
 
 void saveImage(File f) {
   if (f != null) {
-    PImage canvas = get( 71, 1, width -71, height-1);
+    PImage canvas = get( 0, 0, width - 100, height - 0);
     canvas.save(f.getAbsolutePath());
   }
 }
@@ -271,7 +271,7 @@ void openImage(File f) {
     int n= 0;
     while (n < 10) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 400, 300);
+      image(pic, 200, 200);
       n = n + 1;
     }
   }
